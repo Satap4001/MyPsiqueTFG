@@ -1,0 +1,12 @@
+/* * ============================================================
+ * CAPA: VISTA (Presentation Layer)
+ * ============================================================
+ * DEFINICIÓN: Es la interfaz gráfica con la que interactúa el humano.
+ * * RESPONSABILIDADES:
+ * 1. Mostrar los datos que el Controlador le envía.
+ * 2. Contener los formularios y botones para recibir órdenes.
+ * 3. Mantener una estructura visual limpia (HTML/CSS).
+ * * REGLA DE ORO: La Vista es "tonta"; no sabe de bases de datos. 
+ * Si necesita un dato, espera a que el Controlador se lo dé.
+ * ============================================================
+ */

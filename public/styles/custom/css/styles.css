@@ -1,0 +1,19 @@
+:root {
+    /* ── Azules ── */
+    --color-azul-claro:     #64B5F6;   /* azul suave, hover o fondos */
+    --color-azul:           #2196F3;   /* tu azul principal */
+    --color-azul-medio:     #1565C0;   /* entre tu azul y oscuro */
+    --color-azul-oscuro:    #18477d;   /* tu oscuro */
+    --color-azul-navy:      #0D2B4E;   /* casi negro azulado */
+
+    /* ── Grises azulados ── */
+    --color-gris-azul-claro: #B0BEC5;  /* más claro que tu gris */
+    --color-gris-azul:       #78909C;  /* tu gris */
+    --color-gris-azul-medio: #546E7A;  /* más oscuro */
+    --color-gris-azul-oscuro: #37474F; /* casi antracita */
+
+    /* ── Fondos ── */
+    --color-nube-light:     #FFFFFF;
+    --color-nube:           #F5F7F7;
+    --color-nube-dark:      #ECEFF1;   /* fondo con toque azulado */
+}

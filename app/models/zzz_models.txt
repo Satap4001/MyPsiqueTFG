@@ -1,0 +1,12 @@
+/* * ============================================================
+ * CAPA: MODELO (Data Layer)
+ * ============================================================
+ * DEFINICIÓN: Es la representación de la base de datos en el código.
+ * * RESPONSABILIDADES:
+ * 1. Definir la estructura (ej. tabla 'usuarios' con su campo 'id').
+ * 2. Realizar las operaciones CRUD (Create, Read, Update, Delete).
+ * 3. Validar que los datos sean correctos antes de guardarlos.
+ * * REGLA DE ORO: El Modelo NO sabe que existe una interfaz de usuario.
+ * Solo entiende de tablas, filas y tipos de datos.
+ * ============================================================
+ */

@@ -1,0 +1,13 @@
+/* * ============================================================
+ * CAPA: CONTROLADOR (Logic Layer)
+ * ============================================================
+ * DEFINICIÓN: Es el "cerebro" o intermediario del sistema.
+ * * RESPONSABILIDADES:
+ * 1. Escuchar las peticiones del usuario (ej. "quiero ver un psicólogo").
+ * 2. Solicitar al MODELO la información necesaria.
+ * 3. Procesar esa información (filtrar, ordenar, calcular).
+ * 4. Decidir qué VISTA se le debe entregar al usuario al final.
+ * * REGLA DE ORO: El Controlador es el único que habla con el Modelo 
+ * y con la Vista al mismo tiempo.
+ * ============================================================
+ */
