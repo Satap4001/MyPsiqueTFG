@@ -1,5 +1,5 @@
 <?php 
-
+    include_once '../../config/database.php';
 class Usuario {
     private $id;
     private $nombre;
@@ -17,48 +17,34 @@ class Usuario {
         $this->type = $type;
     }
 
-    // Getters y setters
-    public function getId() {
-        return $this->id;
+    public function save() {
+        $pdo = connectDB();
+        $stmt = $pdo->prepare("INSERT INTO usuarios (nombre, email, password, created_at, type) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$this->nombre, $this->email, $this->password, $this->created_at, $this->type]);
+        $this->id = $pdo->lastInsertId();
     }
 
-    public function getNombre() {
-        return $this->nombre;
+    public static function findByEmail($email) {
+        $pdo = connectDB();
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
+        $stmt->execute([$email]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            return new Usuario($row['id'], $row['nombre'], $row['email'], $row['password'], $row['created_at'], $row['type']);
+        }
+        return null;
     }
 
-    public function getEmail() {
-        return $this->email;
+    public static function findById($id) {
+        $pdo = connectDB();
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE id = ?");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            return new Usuario($row['id'], $row['nombre'], $row['email'], $row['password'], $row['created_at'], $row['type']);
+        }
+        return null;
     }
-
-    public function getPassword() {
-        return $this->password;
-    }
-
-    public function getCreatedAt() {
-        return $this->created_at;
-    }
-
-    public function getType() {
-        return $this->type;
-    }
-
-    public function setNombre($nombre) {
-        $this->nombre = $nombre;
-    }
-
-    public function setEmail($email) {
-        $this->email = $email;
-    }
-
-    public function setPassword($password) {
-        $this->password = $password;
-    }
-
-    public function setType($type) {
-        $this->type = $type;
-    }
-
-    
 
 }
 
