@@ -13,12 +13,12 @@
                 session_start();
                 if (isset($_SESSION['user_id'])) {
                     // Usuario autenticado
-                    echo '<a href="/psicologos/perfil.php" class="btn btn-outline-primary me-2">Perfil</a>';
-                    echo '<a href="/auth/logout.php" class="btn btn-outline-danger">Cerrar sesión</a>';
+                    echo '<a href="../psicologos/perfil.php" class="btn btn-outline-primary me-2">Perfil</a>';
+                    echo '<a href="../auth/logout.php" class="btn btn-outline-danger">Cerrar sesión</a>';
                 } else {
                     // Usuario no autenticado
-                    echo '<a href="/auth/login.php" class="btn btn-outline-primary me-2">Iniciar sesión</a>';
-                    echo '<a href="/auth/register.php" class="btn btn-primary">Registrarse</a>';
+                    echo '<a href="../auth/login.php" class="btn btn-outline-primary me-2">Iniciar sesión</a>';
+                    echo '<a href="../auth/register.php" class="btn btn-primary">Registrarse</a>';
                 }
                 ?>
             </div>
