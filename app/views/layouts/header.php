@@ -10,6 +10,7 @@
                     </div>
                 </form>
                 <?php 
+                session_start();
                 if (isset($_SESSION['user_id'])) {
                     // Usuario autenticado
                     echo '<a href="/MyPsiqueTFG/app/views/psicologo/perfil.php" class="btn btn-outline-primary me-2">Perfil</a>';
