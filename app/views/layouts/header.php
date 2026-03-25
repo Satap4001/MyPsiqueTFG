@@ -19,7 +19,7 @@ $base_url = '/MyPsiqueTFG';
                 <?php 
                 if (isset($_SESSION['user_id'])) {
                     // Usuario autenticado
-                    echo '<a href="' . $base_url . '/app/views/psicologos/perfil.php" class="btn btn-outline-primary me-2">Perfil</a>';
+                    echo '<a href="' . $base_url . '/app/views/dashboard/perfil.php" class="btn btn-outline-primary me-2"> Mi Perfil </a>';
                     echo '<a href="' . $base_url . '/app/views/auth/logout.php" class="btn btn-outline-danger">Cerrar sesión</a>';
                 } else {
                     // Usuario no autenticado

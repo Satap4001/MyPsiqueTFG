@@ -50,7 +50,9 @@ function registrarUsuario() {
 
 function registrarPaciente(string $email): void {
     $usuario_id = Usuario::returnIdByEmail($email);
-
+    $_SESSION['user_id'] = $usuario_id;
+    $_SESSION['tipo'] = 'paciente';
+    $_SESSION['nombre'] = $_POST['nombre']; // Puedes almacenar el nombre o cualquier otro dato que necesites en la sesión
     $paciente = new Paciente($usuario_id);
     $paciente->insert();
 }
@@ -62,20 +64,23 @@ function registrarPsicologo(string $email): void {
     $especialidad = $_POST['especialidad'];
     $nacionalidad = $_POST['nacionalidad'];
     $psicologo = new Psicologo($usuario_id, $nacionalidad, $especialidad);
+    $_SESSION['user_id'] = $usuario_id;
+    $_SESSION['tipo'] = 'psicologo';
+    $_SESSION['nombre'] = $_POST['nombre']; // Puedes almacenar el nombre o cualquier otro dato que necesites en la sesión
     $psicologo->insert();
 }
 
 function loginUsuario(): void {
     $email    = $_POST['email'];
     $password = $_POST['password'];
-    echo "<script>console.log('Email: " . $email . "');</script>"; // Debug: Verificar email recibido
     $usuario = Usuario::findByEmail($email);
     
 
     if ($password && password_verify($password, $usuario['contrasena'])) {
         session_start();
         $_SESSION['user_id']   = $usuario['id'];
-        $_SESSION['tipo']      = $usuario['tipo_usuario'];
+        $_SESSION['tipo']      = $usuario['tipo'];
+        $_SESSION['nombre']    = $usuario['nombre']; 
         header('Location: /MyPsiqueTFG/public/index.php');
     } else {
         header('Location: /MyPsiqueTFG/app/views/auth/login.php?error=credenciales');
