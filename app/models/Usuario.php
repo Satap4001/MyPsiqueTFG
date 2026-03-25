@@ -20,8 +20,8 @@ class Usuario {
 
     private $email;
     private $nombre;
-    private $password;
-    private $created_at;
+    private $contrasena;
+    private $fecha_alta;
     private $telefono_contacto;
     private $sexo;
     private $fecha_nacimiento;
@@ -29,11 +29,11 @@ class Usuario {
     private $fecha_modificacion;
     private $avatar;
 
-    public function __construct($nombre, $email, $password, $created_at, $tipo, $telefono_contacto = null, $sexo = null, $fecha_nacimiento = null, $fecha_modificacion = null, $avatar = null) {
+    public function __construct($nombre, $email, $contrasena, $fecha_alta, $tipo, $telefono_contacto = null, $sexo = null, $fecha_nacimiento = null, $fecha_modificacion = null, $avatar = null) {
         $this->nombre = $nombre;
         $this->email = $email;
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
-        $this->created_at = $created_at;
+        $this->contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
+        $this->fecha_alta = $fecha_alta;
         $this->tipo = $tipo;
         $this->telefono_contacto = $telefono_contacto;
         $this->sexo = $sexo;
@@ -44,31 +44,41 @@ class Usuario {
 
     public function insert() {
         $pdo = connectDB();
-        $stmt = $pdo->prepare("INSERT INTO usuarios (nombre, email, password, created_at, tipo, telefono_contacto, sexo, fecha_nacimiento, fecha_modificacion, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$this->nombre, $this->email, $this->password, $this->created_at, $this->tipo, $this->telefono_contacto, $this->sexo, $this->fecha_nacimiento, $this->fecha_modificacion, $this->avatar]);
+        $stmt = $pdo->prepare("INSERT INTO usuarios (nombre, email, contrasena, fecha_alta, tipo, telefono_contacto, sexo, fecha_nacimiento, fecha_modificacion, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$this->nombre, $this->email, $this->contrasena, $this->fecha_alta, $this->tipo, $this->telefono_contacto, $this->sexo, $this->fecha_nacimiento, $this->fecha_modificacion, $this->avatar]);
     }
 
     public static function findByEmail($email) {
         $pdo = connectDB();
         $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
         $stmt->execute([$email]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC); 
         if ($row) {
-            return new Usuario($row['id'], $row['nombre'], $row['email'], $row['password'], $row['created_at'], $row['tipo'], $row['telefono_contacto'], $row['sexo'], $row['fecha_nacimiento'], $row['fecha_modificacion'], $row['avatar']);
+            return $row; 
         }
         return null;
     }
 
-    public function findById($id) {
+    public static function returnIdByEmail($email) {
         $pdo = connectDB();
-        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE id = ?");
-        $stmt->execute([$id]);
+        $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
+        $stmt->execute([$email]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($row) {
-            return new Usuario($row['id'], $row['nombre'], $row['email'], $row['password'], $row['created_at'], $row['tipo'], $row['telefono_contacto'], $row['sexo'], $row['fecha_nacimiento'], $row['fecha_modificacion'], $row['avatar']);
-        }
-        return null;
+        return $row ? $row['id'] : null;
     }
+
+    public function update() {
+        $pdo = connectDB();
+        $stmt = $pdo->prepare("UPDATE usuarios SET nombre = ?, email = ?, contrasena = ?, fecha_modificacion = ?, telefono_contacto = ?, sexo = ?, fecha_nacimiento = ?, avatar = ? WHERE id = ?");
+        $stmt->execute([$this->nombre, $this->email, $this->contrasena, date('Y-m-d H:i:s'), $this->telefono_contacto, $this->sexo, $this->fecha_nacimiento, $this->avatar, $this->id]);
+    }
+
+    public function delete() {
+        $pdo = connectDB();
+        $stmt = $pdo->prepare("DELETE FROM usuarios WHERE email = ?");
+        $stmt->execute([$this->email]);
+    }
+    
 
 }
 

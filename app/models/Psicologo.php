@@ -27,7 +27,7 @@ class Psicologo {
 
     public function insert() {
         $pdo = connectDB();
-        $stmt = $pdo->prepare("INSERT INTO psicologos (usuario_id, nacionalidad, especialidad) VALUES (?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO psicologos (id_usuario, nacionalidad, especialidad) VALUES (?, ?, ?)");
         $stmt->execute([$this->usuario_id, $this->nacionalidad, $this->especialidad]);
         
     }

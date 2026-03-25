@@ -60,7 +60,8 @@
             <h3 class="fw-bold mb-1" style="color: var(--color-azul-oscuro);">Bienvenido de nuevo</h3>
             <p class="mb-4" style="color: var(--color-gris-azul); font-size: 0.9rem;">Inicia sesión en tu cuenta</p>
 
-            <form class="login-form">
+            <form class="login-form" method="POST" action="/MyPsiqueTFG/app/controllers/AuthController.php">
+                <input type="hidden" name="accion" value="login">
                 <div class="mb-3">
                     <label for="email" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
                         Correo electrónico
