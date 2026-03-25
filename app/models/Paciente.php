@@ -19,11 +19,17 @@ class Paciente {
 
     public function insert() {
         $pdo = connectDB();
-        $stmt = $pdo->prepare("INSERT INTO pacientes (usuario_id) VALUES (?)");
+        $stmt = $pdo->prepare("INSERT INTO pacientes (id_usuario) VALUES (?)");
         $stmt->execute([$this->usuario_id]);
     }
 
-    
+    public function returnIdByEmail($email) {
+        $pdo = connectDB();
+        $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
+        $stmt->execute([$email]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ? $row['id'] : null;
+    }
 
     
 }

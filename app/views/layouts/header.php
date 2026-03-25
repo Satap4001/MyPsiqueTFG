@@ -32,4 +32,3 @@ $base_url = '/MyPsiqueTFG';
     </nav>
 </header>
 
-<script src="<?= $base_url ?>/js/buscar.js"></script>

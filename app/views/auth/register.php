@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../../../public/styles/custom/css/styles.css">
 </head>
 <body class="m-0 p-0">
-<?php include_once '../controllers/AuthController.php'; ?>
+<!-- <?php include_once '../../controllers/AuthController.php'; ?> -->
 <div class="d-flex" style="min-height: 100vh;">
 
     <!-- PANEL IZQUIERDO -->
@@ -94,9 +94,10 @@
                         <h3 class="fw-bold mb-1" style="color: var(--color-azul-oscuro);">Crea tu cuenta</h3>
                         <p class="mb-4" style="color: var(--color-gris-azul); font-size: 0.9rem;">Rellena los datos para empezar</p>
 
-                        <form id="formPaciente" method="post" action="../controllers/AuthController.php">
+                        <form id="formPaciente" method="post" action="/MyPsiqueTFG/app/controllers/AuthController.php">
                             <!-- Nombre y Email -->
                             <input type="hidden" name="accion" value="registro">
+                            <input type="hidden" name="tipo_usuario" value="paciente">
                             <div class="mb-3">
                                 <label for="nombre_paciente" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
                                     Nombre completo
@@ -182,9 +183,10 @@
                         <h3 class="fw-bold mb-1" style="color: var(--color-azul-oscuro);">Crea tu cuenta</h3>
                         <p class="mb-4" style="color: var(--color-gris-azul); font-size: 0.9rem;">Rellena los datos para empezar</p>
 
-                        <form id="formPsicologo">
+                        <form id="formPsicologo" method="post" action="/MyPsiqueTFG/app/controllers/AuthController.php">
                             <!-- Nombre y Email -->
                             <input type="hidden" name="accion" value="registro">
+                            <input type="hidden" name="tipo_usuario" value="psicologo">
                             <div class="mb-3">
                                 <label for="nombre_psicologo" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
                                     Nombre completo
@@ -302,41 +304,5 @@
 </div>
 
 <script src="../../../public/styles/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Validación del formulario Paciente
-    // document.getElementById('formPaciente').addEventListener('submit', function(e) {
-    //     e.preventDefault();
-        
-    //     const password = document.getElementById('password_paciente').value;
-    //     const confirmPassword = document.getElementById('confirm_password_paciente').value;
-        
-    //     if (password !== confirmPassword) {
-    //         alert('Las contraseñas no coinciden');
-    //         return;
-    //     }
-        
-    //     // Aquí enviarías los datos al servidor
-    //     console.log('Formulario Paciente válido');
-    //     // this.submit();
-    // });
-
-    // // Validación del formulario Psicólogo
-    // document.getElementById('formPsicologo').addEventListener('submit', function(e) {
-    //     e.preventDefault();
-        
-    //     const password = document.getElementById('password_psicologo').value;
-    //     const confirmPassword = document.getElementById('confirm_password_psicologo').value;
-        
-    //     if (password !== confirmPassword) {
-    //         alert('Las contraseñas no coinciden');
-    //         return;
-    //     }
-        
-    //     // Aquí enviarías los datos al servidor
-    //     console.log('Formulario Psicólogo válido');
-    //     // this.submit();
-    // });
-</script>
-
 </body>
 </html>
