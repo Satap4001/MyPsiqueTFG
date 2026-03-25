@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="styles/custom/css/styles.css">
 </head>
 <body style="margin: 0; padding: 0;">
-
-    <?php include '../app/views/layouts/header.php'; ?>
+    
+    <?php include '../app/views/layouts/header.php';  ?>
 
 
     <div class="d-flex justify-content-center align-items-center" 
