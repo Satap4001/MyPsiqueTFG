@@ -2,22 +2,6 @@
     include_once '../../config/database.php';
 class Usuario {
 
-
-    /*
-    
-        id (auto incrm ) 
-        email (formu ) 
-        nombre ( formu ) 
-        contraseña ( formu ) 
-        fecha_alta ( bbdd auto ) 
-        avatar ( null )
-        fecha_modificacion ( bbdd null ) 
-        telefono_contacto  ( form ) 
-        sexo ( formu ) 
-        fecha_nacimiento ( formu ) 
-
-    */ 
-
     private $email;
     private $nombre;
     private $contrasena;
@@ -73,10 +57,10 @@ class Usuario {
         $stmt->execute([$nombre, $email, password_hash($contrasena, PASSWORD_DEFAULT), date('Y-m-d H:i:s'), $telefono_contacto, $sexo, $avatar]);
     }
 
-    public function delete() {
+    public static function delete($email) {
         $pdo = connectDB();
         $stmt = $pdo->prepare("DELETE FROM usuarios WHERE email = ?");
-        $stmt->execute([$this->email]);
+        $stmt->execute([$email]);
     }
     
 
