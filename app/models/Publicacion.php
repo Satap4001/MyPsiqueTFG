@@ -1,29 +1,62 @@
 <?php
-
+include_once 'config/database.php';
 class Publicacion {
     private $idPsicologo;
     private $titulo;
-    private $contenido;
+    private $descripcion;
     private $fecha_publicacion;
-    private $usuario_id;
+    private $codigoImagen1;
+    private $codigoImagen2;
+    private $codigoImagen3;
+    private $likes;
+    private $fecha_creacion;
 
-    public function __construct($titulo, $contenido, $fecha_publicacion, $usuario_id) {
+    public function __construct($idPsicologo, $titulo, $descripcion, $fecha_creacion, $codigoImagen1, $codigoImagen2, $codigoImagen3, $likes) {
+        
+        $this->idPsicologo = $idPsicologo;
         $this->titulo = $titulo;
-        $this->contenido = $contenido;
-        $this->fecha_publicacion = $fecha_publicacion;
-        $this->usuario_id = $usuario_id;
+        $this->descripcion = $descripcion;
+        $this->fecha_creacion = $fecha_creacion;
+        $this->codigoImagen1 = $codigoImagen1;
+        $this->codigoImagen2 = $codigoImagen2;
+        $this->codigoImagen3 = $codigoImagen3;
+        $this->likes = $likes;
+        
     }
 
-    public function insert() {
-        // Aquí iría la lógica para insertar la publicación en la base de datos
+    public function getIdPsicologo() {
+        return $this->idPsicologo;
+    }
+
+    public function insert(){
+        $pdo = connectDB();
+        $sql = "INSERT INTO publicaciones (idPsicologo, titulo, descripcion, fecha_creacion, codigoImagen1, codigoImagen2, codigoImagen3, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$this->idPsicologo, $this->titulo, $this->descripcion, $this->fecha_creacion, $this->codigoImagen1, $this->codigoImagen2, $this->codigoImagen3, $this->likes]);
+
+
+    }
+
+    public function update($id) {
+        $pdo = connectDB();
+        $sql = "UPDATE publicaciones SET idPsicologo = ?, titulo = ?, descripcion = ?, fecha_creacion = ?, codigoImagen1 = ?, codigoImagen2 = ?, codigoImagen3 = ?, likes = ? WHERE id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$this->idPsicologo, $this->titulo, $this->descripcion, $this->fecha_creacion, $this->codigoImagen1, $this->codigoImagen2, $this->codigoImagen3, $this->likes, $id]);
+    }
+
+    public static function delete($id) {
+        $pdo = connectDB();
+        $sql = "DELETE FROM publicaciones WHERE id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
     }
 
     public static function findById($id) {
-        // Aquí iría la lógica para encontrar una publicación por su ID
-    }
-
-    public static function findAll() {
-        // Aquí iría la lógica para obtener todas las publicaciones
+        $pdo = connectDB();
+        $sql = "SELECT * FROM publicaciones WHERE id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
 

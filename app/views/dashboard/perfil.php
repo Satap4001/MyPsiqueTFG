@@ -22,14 +22,7 @@
             Perfil de <?php echo $_SESSION['nombre']; ?>
 
         </div>
-        <div class="col-8" style="background: var(--color-nube);">
-            Perfil de <?php echo $_SESSION['nombre']; ?>
-
-        </div>
-        <div class="col-2" style="background: var(--color-nube);">
-            Perfil de <?php echo $_SESSION['nombre']; ?>
-
-        </div>
+        
         
     </div>
 
