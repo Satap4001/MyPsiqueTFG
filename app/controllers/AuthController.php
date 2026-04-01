@@ -80,7 +80,8 @@ function loginUsuario(): void {
         session_start();
         $_SESSION['user_id']   = $usuario['id'];
         $_SESSION['tipo']      = $usuario['tipo'];
-        $_SESSION['nombre']    = $usuario['nombre']; 
+        $_SESSION['nombre']    = $usuario['nombre'];
+        $_SESSION['email']     = $usuario['email']; 
         header('Location: /MyPsiqueTFG/public/index.php');
     } else {
         header('Location: /MyPsiqueTFG/app/views/auth/login.php?error=credenciales');
@@ -96,7 +97,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         registrarUsuario();
     } elseif ($accion === 'login') {
         loginUsuario();
+    } elseif ($accion === 'obtenerDatos') {
+        session_start();
+        if (isset($_SESSION['email'])) {
+
+            $datos = Usuario::returnIdByEmail($_SESSION['email']);            
+        }
     } else {
+    
         header('Location: /app/views/auth/register.php');
         exit();
     }

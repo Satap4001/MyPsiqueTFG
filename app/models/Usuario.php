@@ -43,6 +43,24 @@ class Usuario {
         return null;
     }
 
+    public static function findById($id) {
+        $pdo = connectDB();
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE id = ?");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC); 
+        if ($row) {
+            return $row; 
+        }
+        return null;
+    }
+
+    public static function findByName($nombre) {
+        $pdo = connectDB();
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE nombre LIKE ?");
+        $stmt->execute(["%$nombre%"]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }   
+
     public static function returnIdByEmail($email) {
         $pdo = connectDB();
         $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
@@ -54,7 +72,7 @@ class Usuario {
     static public function update($email, $nombre, $contrasena, $telefono_contacto, $sexo, $avatar) {
         $pdo = connectDB();
         $stmt = $pdo->prepare("UPDATE usuarios SET nombre = ?, email = ?, contrasena = ?, fecha_modificacion = ?, telefono_contacto = ?, sexo = ?, avatar = ? WHERE email = ?");
-        $stmt->execute([$nombre, $email, password_hash($contrasena, PASSWORD_DEFAULT), date('Y-m-d H:i:s'), $telefono_contacto, $sexo, $avatar]);
+        $stmt->execute([$nombre, $email, password_hash($contrasena, PASSWORD_DEFAULT), date('Y-m-d H:i:s'), $telefono_contacto, $sexo, $avatar, $email]);
     }
 
     public static function delete($email) {

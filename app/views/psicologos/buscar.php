@@ -17,13 +17,45 @@
         <h1 class="text-start mb-4">Buscar Psicólogos</h1>
         <?php 
             if ($_SESSION['tipo'] === 'psicologo') {
-                echo '<div class="mb-4 text-end">
-                        <a href="/MyPsiqueTFG/app/views/psicologos/publicacion.php" class="btn btn-success custom_color_but_anim">
-                            <i class="bi bi-plus-lg"></i> Nueva Publicación
-                        </a>
-                    </div>';
+                echo '<button type="button"
+                    class="btn btn-success"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalPublicacion">
+                    <i class="bi bi-plus-lg"></i> Nueva Publicación
+                </button>';
             }
         ?>
+
+        <!-- MODAL PARA NUEVA PUBLICACIÓN -->
+
+        <div class="modal fade" id="modalPublicacion" tabindex="-1" aria-labelledby="modalPublicacionLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalPublicacionLabel">Nueva Publicación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formPublicacion" action="/MyPsiqueTFG/app/controllers/PublicacionController.php" method="POST">
+                            <input type="hidden" name="id_psicologo" value="<?= $_SESSION['user_id'] ?>">
+                            <div class="mb-3">
+                                <label for="titulo" class="form-label">Título</label>
+                                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contenido" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="contenido" name="contenido" rows="4" placeholder="Descripción..." required></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" form="formPublicacion" class="btn btn-primary">Publicar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div>
 
         </div>
