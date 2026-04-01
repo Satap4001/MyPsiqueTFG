@@ -67,7 +67,7 @@
         </div>
 
         <div id="results" class="row g-4">
-            <!-- Dynamic content will be loaded here -->
+            
         </div>
     </div>
 
