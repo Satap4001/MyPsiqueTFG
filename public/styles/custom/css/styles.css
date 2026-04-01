@@ -17,3 +17,14 @@
     --color-nube:           #F5F7F7;
     --color-nube-dark:      #ECEFF1;   /* fondo con toque azulado */
 }
+
+.nav_buton {
+    background-color: var(--color-azul);
+    color: var(--color-nube-light);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav_buton:hover {
+    background-color: var(--color-azul-oscuro);
+    color: var(--color-nube-dark);
+}

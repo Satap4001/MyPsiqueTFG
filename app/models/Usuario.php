@@ -2,22 +2,6 @@
     include_once '../../config/database.php';
 class Usuario {
 
-
-    /*
-    
-        id (auto incrm ) 
-        email (formu ) 
-        nombre ( formu ) 
-        contraseña ( formu ) 
-        fecha_alta ( bbdd auto ) 
-        avatar ( null )
-        fecha_modificacion ( bbdd null ) 
-        telefono_contacto  ( form ) 
-        sexo ( formu ) 
-        fecha_nacimiento ( formu ) 
-
-    */ 
-
     private $email;
     private $nombre;
     private $contrasena;
@@ -59,6 +43,24 @@ class Usuario {
         return null;
     }
 
+    public static function findById($id) {
+        $pdo = connectDB();
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE id = ?");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC); 
+        if ($row) {
+            return $row; 
+        }
+        return null;
+    }
+
+    public static function findByName($nombre) {
+        $pdo = connectDB();
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE nombre LIKE ?");
+        $stmt->execute(["%$nombre%"]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }   
+
     public static function returnIdByEmail($email) {
         $pdo = connectDB();
         $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
@@ -70,13 +72,13 @@ class Usuario {
     static public function update($email, $nombre, $contrasena, $telefono_contacto, $sexo, $avatar) {
         $pdo = connectDB();
         $stmt = $pdo->prepare("UPDATE usuarios SET nombre = ?, email = ?, contrasena = ?, fecha_modificacion = ?, telefono_contacto = ?, sexo = ?, avatar = ? WHERE email = ?");
-        $stmt->execute([$nombre, $email, password_hash($contrasena, PASSWORD_DEFAULT), date('Y-m-d H:i:s'), $telefono_contacto, $sexo, $avatar]);
+        $stmt->execute([$nombre, $email, password_hash($contrasena, PASSWORD_DEFAULT), date('Y-m-d H:i:s'), $telefono_contacto, $sexo, $avatar, $email]);
     }
 
-    public function delete() {
+    public static function delete($email) {
         $pdo = connectDB();
         $stmt = $pdo->prepare("DELETE FROM usuarios WHERE email = ?");
-        $stmt->execute([$this->email]);
+        $stmt->execute([$email]);
     }
     
 
