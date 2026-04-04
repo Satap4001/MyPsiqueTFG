@@ -36,7 +36,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="formPublicacion" action="/MyPsiqueTFG/app/controllers/PublicacionController.php" method="POST">
+                        <form id="formPublicacion" action="/MyPsiqueTFG/app/controllers/PublicacionController.php" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
                             <div class="mb-3">
                                 <label for="titulo" class="form-label">Título</label>
@@ -45,6 +45,18 @@
                             <div class="mb-3">
                                 <label for="contenido" class="form-label">Descripción</label>
                                 <textarea class="form-control" id="contenido" name="contenido" rows="4" placeholder="Descripción..." required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="imagen1" class="form-label">Imagen 1</label>
+                                <input type="file" class="form-control" id="imagen1" name="imagen1">
+                            </div>
+                            <div class="mb-3">
+                                <label for="imagen2" class="form-label">Imagen 2</label>
+                                <input type="file" class="form-control" id="imagen2" name="imagen2">
+                            </div>
+                            <div class="mb-3">
+                                <label for="imagen3" class="form-label">Imagen 3</label>
+                                <input type="file" class="form-control" id="imagen3" name="imagen3">
                             </div>
                         </form>
                     </div>
@@ -93,6 +105,10 @@
                                             <div class="card-body">
                                                 <h5 class="card-title">${publicacion.titulo}</h5>
                                                 <p class="card-text">${publicacion.descripcion}</p>
+                                                ${publicacion.imagen1 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.imagen1}" class="img-fluid mb-2">` : ''}
+                                                ${publicacion.imagen2 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.imagen2}" class="img-fluid mb-2">` : ''}
+                                                ${publicacion.imagen3 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.imagen3}" class="img-fluid mb-2">` : ''}
+
                                             </div>
                                         </div>
                                     </div>
