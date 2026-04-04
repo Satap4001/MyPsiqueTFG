@@ -10,16 +10,16 @@
         $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
         foreach ($lines as $line) {
-            // Ignora comentarios
+            // NO COMENTARIOS
             if (str_starts_with(trim($line), '#')) continue;
 
-            // Separa CLAVE=VALOR
+            // SEPARA
             [$key, $value] = explode('=', $line, 2);
 
             $key   = trim($key);
             $value = trim($value);
 
-            // Lo mete en el entorno y en $_ENV
+            // ESTABLECE LA VARIABLE DE ENTORNO
             putenv("$key=$value");
             $_ENV[$key] = $value;
         }

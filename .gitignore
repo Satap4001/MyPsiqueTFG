@@ -2,4 +2,4 @@
 
 .htaccess
 
-# Ignorar archivos de configuración sensibles
+app/uploads/
