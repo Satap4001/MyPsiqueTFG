@@ -1,10 +1,9 @@
 <?php
-include_once 'config/database.php';
+include_once '../../config/database.php';
 class Publicacion {
     private $idPsicologo;
     private $titulo;
     private $descripcion;
-    private $fecha_publicacion;
     private $codigoImagen1;
     private $codigoImagen2;
     private $codigoImagen3;
