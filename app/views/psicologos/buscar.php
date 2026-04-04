@@ -37,7 +37,7 @@
                     </div>
                     <div class="modal-body">
                         <form id="formPublicacion" action="/MyPsiqueTFG/app/controllers/PublicacionController.php" method="POST">
-                            <input type="hidden" name="id_psicologo" value="<?= $_SESSION['user_id'] ?>">
+                            <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
                             <div class="mb-3">
                                 <label for="titulo" class="form-label">Título</label>
                                 <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título..." required>
@@ -72,7 +72,49 @@
     </div>
 
     <?php include '../layouts/footer.php'; ?>
+    <script>
 
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            const resultsContainer = document.getElementById('results');
+            const searchInput = document.getElementById('searchInput');
+            //QUERY '' HACE QUE SI NO SE BUSCA POR NADA , TE DA TODAS LAS PUBLICACIONES
+            function loadPublicaciones(query = '') {
+                fetch(`/MyPsiqueTFG/app/controllers/PublicacionController.php?action=getPublicaciones`)
+                    .then(response => response.json())
+                    .then(data => {
+                        resultsContainer.innerHTML = ''; 
+                        data.forEach(publicacion => {
+                            if (publicacion.titulo.toLowerCase().includes(query.toLowerCase()) || 
+                                publicacion.contenido.toLowerCase().includes(query.toLowerCase())) {
+                                const card = `
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${publicacion.titulo}</h5>
+                                                <p class="card-text">${publicacion.descripcion}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                resultsContainer.innerHTML += card;
+                            }
+                        });
+                    })
+                    .catch(error => console.error('Error al cargar publicaciones:', error));
+            }
+
+            
+            loadPublicaciones();
+
+            
+            searchInput.addEventListener('input', function () {
+                loadPublicaciones(this.value);
+            });
+        });
+
+
+    </script>
     <script src="../../../public/scripts/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../../public/scripts/custom/js/search.js"></script>
 </body>
