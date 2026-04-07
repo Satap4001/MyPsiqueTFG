@@ -118,19 +118,11 @@
 
                             <!-- Contraseña -->
                             <div class="row g-3 mb-3">
-                                <div class="col-6">
+                                <div class="col-12">
                                     <label for="password_paciente" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
                                         Contraseña
                                     </label>
                                     <input type="password" class="form-control rounded-3" name="password" id="password_paciente"
-                                        required
-                                        style="border-color: var(--color-gris-azul-claro);">
-                                </div>
-                                <div class="col-6">
-                                    <label for="confirm_password_paciente" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
-                                        Confirmar contraseña
-                                    </label>
-                                    <input type="password" class="form-control rounded-3" name="confirm_password" id="confirm_password_paciente"
                                         required
                                         style="border-color: var(--color-gris-azul-claro);">
                                 </div>
@@ -207,19 +199,11 @@
 
                             <!-- Contraseña -->
                             <div class="row g-3 mb-3">
-                                <div class="col-6">
+                                <div class="col-12">
                                     <label for="password_psicologo" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
                                         Contraseña
                                     </label>
                                     <input type="password" class="form-control rounded-3" name="password" id="password_psicologo"
-                                        required
-                                        style="border-color: var(--color-gris-azul-claro);">
-                                </div>
-                                <div class="col-6">
-                                    <label for="confirm_password_psicologo" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
-                                        Confirmar contraseña
-                                    </label>
-                                    <input type="password" class="form-control rounded-3" name="confirm_password" id="confirm_password_psicologo"
                                         required
                                         style="border-color: var(--color-gris-azul-claro);">
                                 </div>

@@ -4,21 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar perfil | MyPSique</title>
+    <link rel="stylesheet" href="../../../public/styles/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../../public/styles/custom/css/styles.css">
+    
 </head>
 <body>
+
     <?php include '../layouts/header.php';  ?>
     <div class="container my-5">
         <h1 class="text-center mb-4">Modificar Perfil</h1>
         <form action="/MyPsiqueTFG/app/controllers/UsuarioController.php" method="POST">
             <input type="hidden" name="action" value="update">
             <input type="hidden" name="id" value="<?= $_SESSION['user_id'] ?>">
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" value="<?= $_SESSION['nombre'] ?>" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="<?= $_SESSION['email'] ?>" required>
+            <div class="row">
+                <div class="col-6">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="<?= $_SESSION['nombre'] ?>" required>
+                </div>
+                <div class="col-6 " rowspan="2">
+                    <label for="avatar">Avatar</label>
+                    <input type="file" class="form-control" id="avatar" name="avatar">
+                </div>
+                <div class="col-6">
+                    <label for="correo">Correo</label>
+                    <input type="email" class="form-control" id="correo" name="correo" value="<?= $_SESSION['correo'] ?>" required>
+                </div>
+                <div class="col-6">
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" class="form-control" id="telefono" name="telefono" value="<?= $_SESSION['telefono'] ?>" required>
+                </div>
             </div>
             
             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
