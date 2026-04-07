@@ -65,6 +65,33 @@ class Publicacion {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function search($filtros){
+        $pdo = connectDB();
+        $psicologo = $filtros['psicologo'] ?? null;
+        
+        $titulo = $filtros['titulo'] ?? null;
+        $rangoPrecio = $filtros['rangoPrecio'] ?? null;
+        $sql = "SELECT * FROM publicaciones where ";
+
+        if ($psicologo) {
+            $sql .= "idPsicologo IN (SELECT id FROM usuarios WHERE nombre LIKE '%$psicologo%')";
+        }
+        if ($titulo) {
+            if ($psicologo) $sql .= " AND ";
+            $sql .= "titulo LIKE '%$titulo%'";
+        }
+        if ($rangoPrecio) {
+            if ($psicologo || $titulo) $sql .= " AND ";
+            $sql .= "idPsicologo IN (SELECT id FROM psicologos WHERE precio BETWEEN " . explode('-', $rangoPrecio)[0] . " AND " . explode('-', $rangoPrecio)[1] . ")";
+        }
+        if (isset($filtros['descripcion'])) {
+            if ($psicologo || $titulo || $rangoPrecio) $sql .= " AND ";
+            $sql .= "descripcion LIKE '%" . $filtros['descripcion'] . "%'";
+        }
+        $stmt = $pdo->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 
 ?>

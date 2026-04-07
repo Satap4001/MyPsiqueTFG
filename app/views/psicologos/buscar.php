@@ -94,7 +94,7 @@
                         <h5 class="modal-title" id="modalFiltrosLabel">Filtrar Publicaciones</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="/MyPsiqueTFG/app/controllers/PublicacionController.php" method="GET">
+                    <form id="filtro" action="/MyPsiqueTFG/app/controllers/PublicacionController.php" method="GET">
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="Psicologo" class="form-label">Psicólogo</label>
@@ -103,6 +103,10 @@
                             <div class="mb-3">
                                 <label for="Titulo" class="form-label">Título</label>
                                 <input type="text" class="form-control" name="Titulo" placeholder="Escribe el título...">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Descripcion" class="form-label">Descripción</label>
+                                <input type="text" class="form-control" name="Descripcion" placeholder="Escribe la descripción...">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Rango de Precio del psicólogo</label>
@@ -126,8 +130,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar y buscar</button>
+                            <button type="reset" class="btn btn-warning">Borrar filtros</button>
                         </div>
                     </form>
                 </div>
@@ -144,47 +148,75 @@
 
         
         document.addEventListener('DOMContentLoaded', function () {
-            const resultsContainer = document.getElementById('results');
-            const searchInput = document.getElementById('searchInput');
-            //QUERY '' HACE QUE SI NO SE BUSCA POR NADA , TE DA TODAS LAS PUBLICACIONES
-            function loadPublicaciones(query = '') {
-                fetch(`/MyPsiqueTFG/app/controllers/PublicacionController.php`)
-                    .then(response => response.json())
-                    .then(data => {
-                        resultsContainer.innerHTML = ''; 
-                        data.forEach(publicacion => {
-                            if (publicacion.titulo.toLowerCase().includes(query.toLowerCase()) || 
-                                publicacion.contenido.toLowerCase().includes(query.toLowerCase())) {
-                                const card = `
-                                    <div class="col-md-12">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">${publicacion.titulo}</h5>
-                                                <p class="card-text">${publicacion.descripcion}</p>
-                                                
-                                                ${publicacion.codigoImagen1 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen1}" class="img-fluid mb-2">` : ''}
-                                                ${publicacion.codigoImagen2 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen2}" class="img-fluid mb-2">` : ''}
-                                                ${publicacion.codigoImagen3 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen3}" class="img-fluid mb-2">` : ''}
+        const resultsContainer = document.getElementById('results');
+        const filtroForm = document.getElementById('filtro');
+        // SE BUSCA SIN FILTROS AL CARGAR
+        // EN CASO DE QUE SE USE EL FORMULARIO DE FILTROS, SE CARGA LOS FILTROS CON 
+        function loadPublicaciones(filtros = {}) {
+            
+            const queryParams = new URLSearchParams();
+            
+            if (filtros.Psicologo) queryParams.append('Psicologo', filtros.Psicologo);
+            if (filtros.Titulo) queryParams.append('Titulo', filtros.Titulo);
+            if (filtros.Descripcion) queryParams.append('Descripcion', filtros.Descripcion);
+            if (filtros.rangoPrecio) queryParams.append('rangoPrecio', filtros.rangoPrecio);
+            // SI NO HAY FILTROS, SE CARGA TODO EN EL IF TERNARIO
+            const url = `/MyPsiqueTFG/app/controllers/PublicacionController.php${queryParams.toString() ? '?' + queryParams.toString() : ''}`;
 
-                                            </div>
-                                        </div>
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    resultsContainer.innerHTML = ''; 
+                    
+                    if (data.length === 0) {
+                        resultsContainer.innerHTML = '<p class="text-center">No se encontraron publicaciones</p>';
+                        return;
+                    }
+
+                    data.forEach(publicacion => {
+                        const card = `
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${publicacion.titulo}</h5>
+                                        <p class="card-text">${publicacion.descripcion}</p>
+                                        
+                                        ${publicacion.codigoImagen1 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen1}" class="img-fluid mb-2">` : ''}
+                                        ${publicacion.codigoImagen2 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen2}" class="img-fluid mb-2">` : ''}
+                                        ${publicacion.codigoImagen3 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen3}" class="img-fluid mb-2">` : ''}
                                     </div>
-                                `;
-                                resultsContainer.innerHTML += card;
-                            }
-                        });
-                    })
-                    .catch(error => console.error('Error al cargar publicaciones:', error));
-            }
+                                </div>
+                            </div>
+                        `;
+                        resultsContainer.innerHTML += card;
+                    });
+                })
+                .catch(error => console.error('Error al cargar publicaciones:', error));
+        }
 
-            
-            loadPublicaciones();
+        
+        loadPublicaciones();
 
+        // FILTRAR PUBLICACIONES
+        filtroForm.addEventListener('change', function () {
+            const formData = new FormData(filtroForm);
+            const filtros = Object.fromEntries(formData);
             
-            searchInput.addEventListener('input', function () {
-                loadPublicaciones(this.value);
+           
+            Object.keys(filtros).forEach(key => {
+                if (!filtros[key]) delete filtros[key];
             });
+            
+            loadPublicaciones(filtros);
         });
+
+        // RESETEAR FILTROS
+        filtroForm.addEventListener('reset', function () {
+            setTimeout(() => {
+                loadPublicaciones();
+            }, 0);
+        });
+    });
 
 
     </script>
