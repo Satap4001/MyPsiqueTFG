@@ -9,7 +9,19 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         session_start();
-        $publicaciones = Publicacion::getAll();
+
+        $filtros = [
+            'psicologo'   => $_GET['Psicologo'] ?? null,
+            'titulo'      => $_GET['Titulo'] ?? null,
+            'rangoPrecio' => $_GET['rangoPrecio'] ?? null,
+            'descripcion' => $_GET['Descripcion'] ?? null
+        ];
+
+        if ($filtros['psicologo'] || $filtros['titulo'] || $filtros['rangoPrecio'] || $filtros['descripcion']) {
+        $publicaciones = Publicacion::search($filtros);
+        }     else {
+            $publicaciones = Publicacion::getAll();
+        }
         header('Content-Type: application/json');
         echo json_encode($publicaciones);
         exit;
