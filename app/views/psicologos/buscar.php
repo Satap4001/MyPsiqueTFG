@@ -173,17 +173,110 @@
                         return;
                     }
 
-                    data.forEach(publicacion => {
+                    data.forEach(publicacion => { <?php ?>
                         const card = `
                             <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${publicacion.titulo}</h5>
-                                        <p class="card-text">${publicacion.descripcion}</p>
+                                <div class="card border-0 rounded-4 shadow-sm overflow-hidden">
+                                    <!-- Header con Avatar y Info del Psicólogo -->
+                                    <div class="card-header bg-light border-0 p-4">
+                                        <div class="d-flex align-items-center gap-3">
+                                            
+                                            <div class="position-relative">
+                                                <img src="/MyPsiqueTFG/app/uploads/avatars/${publicacion.avatar || 'default.png'}" 
+                                                    alt="${publicacion.nombre}" 
+                                                    class="rounded-circle"
+                                                    style="width: 60px; height: 60px; object-fit: cover; border: 3px solid var(--color-azul);">
+                                            </div>
+                                            
+                                            
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-0">
+                                                    <a href="/MyPsiqueTFG/app/views/dashboard/perfil.php?user_id=${publicacion.user_id}" 
+                                                    class="text-decoration-none fw-bold"
+                                                    style="color: var(--color-azul-oscuro); transition: color 0.3s;">
+                                                        ${publicacion.nombre}
+                                                    </a>
+                                                </h6>
+                                                <small class="text-muted">${publicacion.especialidad || 'Psicólogo'}</small>
+                                                <br>
+                                                <small class="text-secondary" style="font-size: 0.8rem;">
+                                                    <i class="bi bi-calendar-event"></i> ${new Date(publicacion.fecha_creacion).toLocaleDateString('es-ES')}
+                                                </small>
+                                            </div>
+
+                                            <!-- Rating (opcional) -->
+                                            <div class="text-end">
+                                                <div class="text-warning">
+                                                    <i class="bi bi-star-fill"></i>
+                                                    <span class="fw-bold text-dark">${publicacion.calificacion || '4.8'}</span>
+                                                </div>
+                                                <small class="text-muted">(${publicacion.num_resenas || '0'} reseñas)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="card-body p-4">
                                         
-                                        ${publicacion.codigoImagen1 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen1}" class="img-fluid mb-2">` : ''}
-                                        ${publicacion.codigoImagen2 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen2}" class="img-fluid mb-2">` : ''}
-                                        ${publicacion.codigoImagen3 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen3}" class="img-fluid mb-2">` : ''}
+                                        <h5 class="card-title fw-bold mb-2" style="color: var(--color-azul-oscuro);">
+                                            ${publicacion.titulo}
+                                        </h5>
+
+                                        <!-- Descripción -->
+                                        <p class="card-text text-secondary mb-3" style="line-height: 1.6;">
+                                            ${publicacion.descripcion}
+                                        </p>
+
+                                        
+                                        <div class="mb-3">
+                                            <div class="row g-2">
+                                                ${publicacion.codigoImagen1 ? `
+                                                    <div class="col-md-6">
+                                                        <img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen1}" 
+                                                            class="img-fluid rounded-3 shadow-sm" 
+                                                            style="cursor: pointer; transition: transform 0.3s;"
+                                                            onclick="abrirImagenModal(this.src)">
+                                                    </div>
+                                                ` : ''}
+                                                ${publicacion.codigoImagen2 ? `
+                                                    <div class="col-md-6">
+                                                        <img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen2}" 
+                                                            class="img-fluid rounded-3 shadow-sm"
+                                                            style="cursor: pointer; transition: transform 0.3s;"
+                                                            onclick="abrirImagenModal(this.src)">
+                                                    </div>
+                                                ` : ''}
+                                                ${publicacion.codigoImagen3 ? `
+                                                    <div class="col-md-12">
+                                                        <img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen3}" 
+                                                            class="img-fluid rounded-3 shadow-sm"
+                                                            style="cursor: pointer; transition: transform 0.3s;"
+                                                            onclick="abrirImagenModal(this.src)">
+                                                    </div>
+                                                ` : ''}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="card-footer bg-light border-top p-3 d-flex gap-2 justify-content-between">
+                                        <!-- Likes -->
+                                        <div class="d-flex align-items-center gap-2">
+                                            <button class="btn btn-sm btn-light border-0" onclick="darLike(${publicacion.id})">
+                                                <i class="bi bi-heart" style="color: var(--color-azul);"></i>
+                                                <span class="small text-muted">${publicacion.likes || 0}</span>
+                                            </button>
+                                        </div>
+
+                                        
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-outline-primary rounded-3">
+                                                <i class="bi bi-chat-dots"></i> Contactar
+                                            </button>
+                                            <button class="btn btn-sm btn-primary rounded-3">
+                                                <i class="bi bi-calendar-check"></i> Agendar
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

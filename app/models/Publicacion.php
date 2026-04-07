@@ -60,7 +60,16 @@ class Publicacion {
 
     public static function getAll() {
         $pdo = connectDB();
-        $sql = "SELECT * FROM publicaciones ORDER BY fecha_creacion DESC";
+        $sql = "SELECT 
+                    p.*,
+                    u.id as user_id,
+                    u.nombre,
+                    u.avatar,
+                    ps.especialidad
+                FROM publicaciones p
+                JOIN psicologos ps ON p.idPsicologo = ps.id
+                JOIN usuarios u ON ps.id_usuario = u.id
+                ORDER BY p.fecha_creacion DESC";
         $stmt = $pdo->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -71,7 +80,16 @@ class Publicacion {
         
         $titulo = $filtros['titulo'] ?? null;
         $rangoPrecio = $filtros['rangoPrecio'] ?? null;
-        $sql = "SELECT * FROM publicaciones where ";
+        $sql = "SELECT 
+                    p.*,
+                    u.id as user_id,
+                    u.nombre,
+                    u.avatar,
+                    ps.especialidad
+                FROM publicaciones p
+                JOIN psicologos ps ON p.idPsicologo = ps.id
+                JOIN usuarios u ON ps.id_usuario = u.id
+                WHERE ";
 
         if ($psicologo) {
             $sql .= "idPsicologo IN (SELECT id FROM usuarios WHERE nombre LIKE '%$psicologo%')";
