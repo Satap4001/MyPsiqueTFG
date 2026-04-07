@@ -95,7 +95,7 @@
                         <p class="mb-4" style="color: var(--color-gris-azul); font-size: 0.9rem;">Rellena los datos para empezar</p>
 
                         <form id="formPaciente" method="post" action="/MyPsiqueTFG/app/controllers/AuthController.php">
-                            <!-- Nombre y Email -->
+                            
                             <input type="hidden" name="accion" value="registro">
                             <input type="hidden" name="tipo_usuario" value="paciente">
                             <div class="mb-3">
@@ -116,7 +116,7 @@
                                     style="border-color: var(--color-gris-azul-claro);">
                             </div>
 
-                            <!-- Contraseña -->
+                            
                             <div class="row g-3 mb-3">
                                 <div class="col-12">
                                     <label for="password_paciente" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
@@ -128,7 +128,7 @@
                                 </div>
                             </div>
 
-                            <!-- Nacionalidad -->
+                            
                             <div class="mb-3">
                                 <label for="nacionalidad_paciente" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
                                     Nacionalidad
@@ -138,7 +138,7 @@
                                     style="border-color: var(--color-gris-azul-claro);">
                             </div>
 
-                            <!-- Sexo -->
+                            
                             <div class="mb-3">
                                 <label for="sexo_paciente" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
                                     Sexo
@@ -152,7 +152,7 @@
                                 </select>
                             </div>
 
-                            <!-- Fecha de nacimiento -->
+                            
                             <div class="mb-4">
                                 <label for="fecha_nacimiento_paciente" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
                                     Fecha de nacimiento
@@ -176,7 +176,7 @@
                         <p class="mb-4" style="color: var(--color-gris-azul); font-size: 0.9rem;">Rellena los datos para empezar</p>
 
                         <form id="formPsicologo" method="post" action="/MyPsiqueTFG/app/controllers/AuthController.php">
-                            <!-- Nombre y Email -->
+                            
                             <input type="hidden" name="accion" value="registro">
                             <input type="hidden" name="tipo_usuario" value="psicologo">
                             <div class="mb-3">
@@ -197,7 +197,7 @@
                                     style="border-color: var(--color-gris-azul-claro);">
                             </div>
 
-                            <!-- Contraseña -->
+                            
                             <div class="row g-3 mb-3">
                                 <div class="col-12">
                                     <label for="password_psicologo" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
@@ -209,7 +209,7 @@
                                 </div>
                             </div>
 
-                            <!-- Nacionalidad -->
+                            
                             <div class="mb-3">
                                 <label for="nacionalidad_psicologo" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
                                     Nacionalidad
@@ -219,7 +219,7 @@
                                     style="border-color: var(--color-gris-azul-claro);">
                             </div>
 
-                            <!-- Sexo -->
+                            
                             <div class="mb-3">
                                 <label for="sexo_psicologo" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
                                     Sexo
@@ -233,7 +233,7 @@
                                 </select>
                             </div>
 
-                            <!-- Especialidad -->
+                            
                             <div class="mb-3">
                                 <label for="especialidad_psicologo" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
                                     Especialidad
@@ -243,7 +243,7 @@
                                     style="border-color: var(--color-gris-azul-claro);">
                             </div>
 
-                            <!-- Fecha de nacimiento -->
+                            
                             <div class="mb-3">
                                 <label for="fecha_nacimiento_paciente" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
                                     Fecha de nacimiento
@@ -252,12 +252,12 @@
                                     required style="border-color: var(--color-gris-azul-claro);">
                             </div>
 
-                            <!-- Teléfono -->
+                            
                             <div class="mb-4">
-                                <label for="telefono_psicologo" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
+                                <label for="telefono" class="form-label fw-medium small" style="color: var(--color-gris-azul-medio);">
                                     Teléfono
                                 </label>
-                                <input type="tel" class="form-control rounded-3" name="telefono" id="telefono_psicologo"
+                                <input type="tel" class="form-control rounded-3" name="telefono" id="telefono"
                                     placeholder="Tu teléfono" required
                                     style="border-color: var(--color-gris-azul-claro);">
                             </div>

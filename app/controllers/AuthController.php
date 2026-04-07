@@ -41,10 +41,10 @@ function registrarUsuario() {
     if ($tipo_usuario === 'paciente') {
         registrarPaciente($email);
     } elseif ($tipo_usuario === 'psicologo') {
-        registrarPsicologo($email);   // ← ahora recibe $email
+        registrarPsicologo($email);   
     }
 
-    header('Location: /MyPsiqueTFG/public/index.php'); // Usa barra inicial (ruta absoluta en tu localhost)
+    header('Location: /MyPsiqueTFG/public/index.php'); 
     exit();
 }
 
@@ -52,7 +52,8 @@ function registrarPaciente(string $email): void {
     $usuario_id = Usuario::returnIdByEmail($email);
     $_SESSION['user_id'] = $usuario_id;
     $_SESSION['tipo'] = 'paciente';
-    $_SESSION['nombre'] = $_POST['nombre']; // Puedes almacenar el nombre o cualquier otro dato que necesites en la sesión
+    $_SESSION['nombre'] = $_POST['nombre'];
+    $_SESSION['email'] = $email;
     $paciente = new Paciente($usuario_id);
     $paciente->insert();
 }
@@ -66,7 +67,9 @@ function registrarPsicologo(string $email): void {
     $psicologo = new Psicologo($usuario_id, $nacionalidad, $especialidad);
     $_SESSION['user_id'] = $usuario_id;
     $_SESSION['tipo'] = 'psicologo';
-    $_SESSION['nombre'] = $_POST['nombre']; // Puedes almacenar el nombre o cualquier otro dato que necesites en la sesión
+    $_SESSION['nombre'] = $_POST['nombre']; 
+    $_SESSION['email'] = $email;
+    $_SESSION['telefono'] = $_POST['telefono'];
     $psicologo->insert();
 }
 
@@ -82,6 +85,10 @@ function loginUsuario(): void {
         $_SESSION['tipo']      = $usuario['tipo'];
         $_SESSION['nombre']    = $usuario['nombre'];
         $_SESSION['email']     = $usuario['email']; 
+        if ($usuario['tipo'] === 'psicologo') {
+            
+            $_SESSION['telefono'] = $_POST['telefono'];
+        }
         header('Location: /MyPsiqueTFG/public/index.php');
     } else {
         header('Location: /MyPsiqueTFG/app/views/auth/login.php?error=credenciales');
