@@ -57,15 +57,11 @@
 
         
         $publicacion = new Publicacion($id_psicologo, $titulo, $descripcion, date('Y-m-d H:i:s'), $codigoImagen1, $codigoImagen2, $codigoImagen3, 0);
+        $publicacion->insert();
         
-        if ($publicacion->insert()) {
-            header('Location: /MyPsiqueTFG/app/views/psicologos/buscar.php');
-            exit;
-        } else {
-            header('Location: /MyPsiqueTFG/app/views/psicologos/buscar.php');
-            exit;
-
-        }
+        header('Location: ../views/psicologos/buscar.php');
+        exit;
+       
     }
 
 

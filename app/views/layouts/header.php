@@ -43,8 +43,19 @@ $base_url = '/MyPsiqueTFG';
                 <?php 
                 if (isset($_SESSION['user_id'])) {
                     // Usuario autenticado
-                    echo '<a href="' . $base_url . '/app/views/dashboard/perfil.php" class="btn btn-outline-primary me-2">Mi Perfil</a>';
-                    echo '<a href="' . $base_url . '/app/views/auth/logout.php" class="btn btn-outline-danger">Cerrar sesión</a>';
+                    echo '
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle nav_buton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Mi Cuenta
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item nav_buton" href="' . $base_url . '/app/views/dashboard/perfil.php">Mi Perfil</a></li>
+                                <li><a class="dropdown-item nav_buton" href="' . $base_url . '/app/views/dashboard/modPerfil.php">Modificar Cuenta</a></li>
+                                <li><a class="dropdown-item nav_buton" href="' . $base_url . '/app/views/auth/logout.php">Cerrar sesión</a></li>
+                            </ul>
+                        </div>
+                    ';
+                    
                 } else {
                     // Usuario no autenticado
                     echo '<a href="' . $base_url . '/app/views/auth/login.php" class="btn btn-outline-primary me-2">Iniciar sesión</a>';

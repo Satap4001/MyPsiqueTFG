@@ -16,14 +16,19 @@
     <div class="container my-5">
         <h1 class="text-start mb-4">Buscar Psicólogos</h1>
         <?php 
-            if ($_SESSION['tipo'] === 'psicologo') {
-                echo '<button type="button"
-                    class="btn btn-success"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalPublicacion">
-                    <i class="bi bi-plus-lg"></i> Nueva Publicación
-                </button>';
+            if (isset($_SESSION['tipo'])){
+
+                if ($_SESSION['tipo'] === 'psicologo') {
+                    echo '<button type="button"
+                        class="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalPublicacion">
+                        <i class="bi bi-plus-lg"></i> Nueva Publicación
+                    </button>';
+                }
+
             }
+            
         ?>
 
         <!-- MODAL PARA NUEVA PUBLICACIÓN -->
@@ -67,15 +72,66 @@
                 </div>
             </div>
         </div>
+        <!-- BUSQUEDA POR FILTROS -->    
+        <div >
 
-        <div>
+            <button type="button"
+                        class="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalFiltros">
+                        <i class="bi bi-funnel"></i> Filtrar
+            </button>
 
         </div>
-        <div class="input-group mb-4 text-start">
-            <input type="text" id="searchInput" class="form-control" placeholder="Buscar por nombre, especialidad o ubicación...">
-            <button class="btn btn-primary custom_color_but_anim" type="button">
-                <i class="bi bi-search"></i>
-            </button>
+
+
+        <!-- MODAL QUE APARECE POR FILTROS -->
+
+        <div class="modal fade" id="modalFiltros" tabindex="-1" aria-labelledby="modalFiltrosLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="modalFiltrosLabel">Filtrar Publicaciones</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/MyPsiqueTFG/app/controllers/PublicacionController.php" method="GET">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="Psicologo" class="form-label">Psicólogo</label>
+                                <input type="text" class="form-control" name="Psicologo" placeholder="Escribe el nombre del psicólogo...">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Titulo" class="form-label">Título</label>
+                                <input type="text" class="form-control" name="Titulo" placeholder="Escribe el título...">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Rango de Precio del psicólogo</label>
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rangoPrecio" id="precio1" value="0-50">
+                                    <label class="form-check-label" for="precio1">0-50€</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rangoPrecio" id="precio2" value="50-100">
+                                    <label class="form-check-label" for="precio2">50-100€</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rangoPrecio" id="precio3" value="100-150">
+                                    <label class="form-check-label" for="precio3">100-150€</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rangoPrecio" id="precio4" value="150+">
+                                    <label class="form-check-label" for="precio4">150€ o más</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <div id="results" class="row g-4">
@@ -92,7 +148,7 @@
             const searchInput = document.getElementById('searchInput');
             //QUERY '' HACE QUE SI NO SE BUSCA POR NADA , TE DA TODAS LAS PUBLICACIONES
             function loadPublicaciones(query = '') {
-                fetch(`/MyPsiqueTFG/app/controllers/PublicacionController.php?action=getPublicaciones`)
+                fetch(`/MyPsiqueTFG/app/controllers/PublicacionController.php`)
                     .then(response => response.json())
                     .then(data => {
                         resultsContainer.innerHTML = ''; 
@@ -100,14 +156,15 @@
                             if (publicacion.titulo.toLowerCase().includes(query.toLowerCase()) || 
                                 publicacion.contenido.toLowerCase().includes(query.toLowerCase())) {
                                 const card = `
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title">${publicacion.titulo}</h5>
                                                 <p class="card-text">${publicacion.descripcion}</p>
-                                                ${publicacion.imagen1 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.imagen1}" class="img-fluid mb-2">` : ''}
-                                                ${publicacion.imagen2 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.imagen2}" class="img-fluid mb-2">` : ''}
-                                                ${publicacion.imagen3 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.imagen3}" class="img-fluid mb-2">` : ''}
+                                                
+                                                ${publicacion.codigoImagen1 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen1}" class="img-fluid mb-2">` : ''}
+                                                ${publicacion.codigoImagen2 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen2}" class="img-fluid mb-2">` : ''}
+                                                ${publicacion.codigoImagen3 ? `<img src="/MyPsiqueTFG/app/uploads/${publicacion.codigoImagen3}" class="img-fluid mb-2">` : ''}
 
                                             </div>
                                         </div>
