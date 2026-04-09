@@ -5,7 +5,9 @@
     include_once '../models/Psicologo.php';
     
 
-    
+    function obtenerPublicaciones($idPsicologo) {
+        return Publicacion::findByPsicologoId($idPsicologo);
+    }
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         session_start();

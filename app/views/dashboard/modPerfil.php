@@ -11,18 +11,18 @@
 </head>
 <body>
 
-    <?php include '../layouts/header.php';  ?>
-    
+    <?php include '../layouts/header.php'; var_dump($_SESSION) ?>
+   
     <div class="container my-5">
         <h1 class="text-center mb-4">Modificar Perfil</h1>
-        <form action="/MyPsiqueTFG/app/controllers/UsuarioController.php ?>" method="POST">
+        <form action="/MyPsiqueTFG/app/controllers/UsuarioController.php ?>" method="POST" enctype="multipart/form-data">
             <input type="hidden" value="update" id="action">
             <input type="hidden" name="action" value="update">
             <input type="hidden" name="id" value="<?= $_SESSION['user_id'] ?>">
             <div class="row">
                 <div class="col-6">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" value="<?= $_SESSION['nombre'] ?>" disabled required>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="<?= $_SESSION['nombre'] ?>" readonly required>
                 </div>
                 <div class="col-6 " rowspan="2">
                     <label for="avatar">Avatar</label>
@@ -35,7 +35,7 @@
                 <?php if ($_SESSION['tipo'] === 'psicologo') : ?>
                     <div class="col-6">
                         <label for="telefono">Teléfono</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono" value="<?= $_SESSION['telefono'] ?>" required>
+                        <input type="text" class="form-control" id="telefono" name="telefono" value="<?= $_SESSION['telefono'] ?>" >
                     </div>
                 <?php endif; ?>
 

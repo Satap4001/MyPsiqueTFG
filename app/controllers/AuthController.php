@@ -15,11 +15,8 @@ function registrarUsuario() {
 
     
 
-    // Validación básica server-side
-    if ($_POST['password'] !== $_POST['confirm_password']) {
-        header('Location: /app/views/auth/register.php?error=passwords');
-        exit();
-    }
+    
+    
 
     if (Usuario::findByEmail($_POST['email']) !== null) {
         header('Location: /app/views/auth/register.php?error=email_exists');

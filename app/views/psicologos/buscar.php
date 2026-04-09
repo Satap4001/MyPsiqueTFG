@@ -182,7 +182,7 @@
                                         <div class="d-flex align-items-center gap-3">
                                             
                                             <div class="position-relative">
-                                                <img src="/MyPsiqueTFG/app/uploads/avatars/${publicacion.avatar || 'default.png'}" 
+                                                <img src="/MyPsiqueTFG/app/uploads/avatar/${publicacion.avatar || 'default.png'}" 
                                                     alt="${publicacion.nombre}" 
                                                     class="rounded-circle"
                                                     style="width: 60px; height: 60px; object-fit: cover; border: 3px solid var(--color-azul);">
