@@ -23,6 +23,14 @@ class Publicacion {
         
     }
 
+    public static function findByPsicologoId($idPsicologo) {
+        $pdo = connectDB();
+        $sql = "SELECT * FROM publicaciones WHERE idPsicologo = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idPsicologo]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getIdPsicologo() {
         return $this->idPsicologo;
     }
@@ -77,9 +85,10 @@ class Publicacion {
     public static function search($filtros){
         $pdo = connectDB();
         $psicologo = $filtros['psicologo'] ?? null;
-        
         $titulo = $filtros['titulo'] ?? null;
+        $descripcion = $filtros['descripcion'] ?? null;
         $rangoPrecio = $filtros['rangoPrecio'] ?? null;
+        
         $sql = "SELECT 
                     p.*,
                     u.id as user_id,
@@ -89,24 +98,39 @@ class Publicacion {
                 FROM publicaciones p
                 JOIN psicologos ps ON p.idPsicologo = ps.id
                 JOIN usuarios u ON ps.id_usuario = u.id
-                WHERE ";
-
+                WHERE 1=1";
+        
+        $params = [];
+        
         if ($psicologo) {
-            $sql .= "idPsicologo IN (SELECT id FROM usuarios WHERE nombre LIKE '%$psicologo%')";
+            $sql .= " AND u.nombre LIKE ?";
+            $params[] = '%' . $psicologo . '%';
         }
+        
         if ($titulo) {
-            if ($psicologo) $sql .= " AND ";
-            $sql .= "titulo LIKE '%$titulo%'";
+            $sql .= " AND p.titulo LIKE ?";
+            $params[] = '%' . $titulo . '%';
         }
+        
+        if ($descripcion) {
+            $sql .= " AND p.descripcion LIKE ?";
+            $params[] = '%' . $descripcion . '%';
+        }
+        
         if ($rangoPrecio) {
-            if ($psicologo || $titulo) $sql .= " AND ";
-            $sql .= "idPsicologo IN (SELECT id FROM psicologos WHERE precio BETWEEN " . explode('-', $rangoPrecio)[0] . " AND " . explode('-', $rangoPrecio)[1] . ")";
+            $rango = explode('-', $rangoPrecio);
+            $min = (int)$rango[0];
+            $max = ($rango[1] === '+') ? PHP_INT_MAX : (int)$rango[1];
+            
+            $sql .= " AND ps.precio BETWEEN ? AND ?";
+            $params[] = $min;
+            $params[] = $max;
         }
-        if (isset($filtros['descripcion'])) {
-            if ($psicologo || $titulo || $rangoPrecio) $sql .= " AND ";
-            $sql .= "descripcion LIKE '%" . $filtros['descripcion'] . "%'";
-        }
-        $stmt = $pdo->query($sql);
+        
+        $sql .= " ORDER BY p.fecha_creacion DESC";
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
