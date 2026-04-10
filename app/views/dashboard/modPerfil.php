@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <?php include '../layouts/header.php'; var_dump($_SESSION) ?>
+    <?php include '../layouts/header.php';?>
    
     <div class="container my-5">
         <h1 class="text-center mb-4">Modificar Perfil</h1>

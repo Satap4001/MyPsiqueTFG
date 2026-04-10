@@ -177,7 +177,7 @@
                         const card = `
                             <div class="col-md-12">
                                 <div class="card border-0 rounded-4 shadow-sm overflow-hidden">
-                                    <!-- Header con Avatar y Info del Psicólogo -->
+                                    
                                     <div class="card-header bg-light border-0 p-4">
                                         <div class="d-flex align-items-center gap-3">
                                             
@@ -204,7 +204,7 @@
                                                 </small>
                                             </div>
 
-                                            <!-- Rating (opcional) -->
+                                            
                                             <div class="text-end">
                                                 <div class="text-warning">
                                                     <i class="bi bi-star-fill"></i>
@@ -222,7 +222,7 @@
                                             ${publicacion.titulo}
                                         </h5>
 
-                                        <!-- Descripción -->
+                                        
                                         <p class="card-text text-secondary mb-3" style="line-height: 1.6;">
                                             ${publicacion.descripcion}
                                         </p>
@@ -260,7 +260,7 @@
 
                                     
                                     <div class="card-footer bg-light border-top p-3 d-flex gap-2 justify-content-between">
-                                        <!-- Likes -->
+                                        
                                         <div class="d-flex align-items-center gap-2">
                                             <button class="btn btn-sm btn-light border-0" onclick="darLike(${publicacion.id})">
                                                 <i class="bi bi-heart" style="color: var(--color-azul);"></i>
@@ -269,14 +269,7 @@
                                         </div>
 
                                         
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-outline-primary rounded-3">
-                                                <i class="bi bi-chat-dots"></i> Contactar
-                                            </button>
-                                            <button class="btn btn-sm btn-primary rounded-3">
-                                                <i class="bi bi-calendar-check"></i> Agendar
-                                            </button>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>

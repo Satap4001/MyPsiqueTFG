@@ -33,7 +33,8 @@
 </style>
 <body>
     <?php include '../layouts/header.php';  
-        $psicologoId = $_GET['psicologoId'];
+        $psicologoId = $_GET['psicologo_id'];
+        var_dump($_GET);
     ?>
     
     <div class="m-5 p-5">

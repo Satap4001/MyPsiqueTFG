@@ -31,7 +31,7 @@ $base_url = '/MyPsiqueTFG';
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item nav_buton" href="#">Nuestros Psicólogos</a></li>
-                            <li><a class="dropdown-item nav_buton" href="<?= $base_url ?>/app/views/psicologos/buscar.php">Comunidad</a></li>
+                            <li><a class="dropdown-item nav_buton" href="<?= $base_url ?>/app/views/psicologos/comunidad.php">Comunidad</a></li>
                             <li><a class="dropdown-item nav_buton" href="#">Trabaja con nosotros</a></li>
                         </ul>
                     </div>
@@ -49,7 +49,7 @@ $base_url = '/MyPsiqueTFG';
                                 Mi Cuenta
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item nav_buton" href="' . $base_url . '/app/views/dashboard/perfil.php">Mi Perfil</a></li>
+                                <li><a class="dropdown-item nav_buton" href="' . $base_url . '/app/views/dashboard/perfil.php?user_id=' . $_SESSION['user_id'] . '">Mi Perfil</a></li>
                                 <li><a class="dropdown-item nav_buton" href="' . $base_url . '/app/views/dashboard/modPerfil.php">Modificar Cuenta</a></li>
                                 <li><a class="dropdown-item nav_buton" href="' . $base_url . '/app/views/auth/logout.php">Cerrar sesión</a></li>
                             </ul>

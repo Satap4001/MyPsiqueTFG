@@ -50,17 +50,12 @@ require_once '../models/Psicologo.php';
         
         $usuario = Usuario::findByEmail($email);
         if ($usuario) {
-            echo "Usuario encontrado: " . $usuario['nombre'];
-            if ($telefono !== null) {
-                
-            }
-            echo "Teléfono recibido: " . $telefono;
+            
+            
+            
             if (isset($avatar) && !empty($avatar['name'])) {
-                echo "Archivo de avatar recibido: " . $avatar['name'];
                 $nombreArchivo = guardarArchivo($avatar, $usuario['id']);
-                echo "Archivo de avatar guardado como: " . $nombreArchivo;
                 $avatar = $nombreArchivo;
-                
             }
             Usuario::update($email ?: $usuario->email, $nombre, $contrasena, $telefono, $usuario['sexo'], $avatar);
             header('Location: /MyPsiqueTFG/app/views/dashboard/perfil.php?user_id=' . $usuario['id']);
