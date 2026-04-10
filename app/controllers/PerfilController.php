@@ -32,7 +32,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $usuario['id']) {
 } else {
     $esPropietario = false;
 }
-
+$_SESSION['avatar'] = $usuario['avatar'];
 echo json_encode([
     'nombre'       => $usuario['nombre'],
     'email'        => $usuario['email'],

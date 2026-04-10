@@ -24,9 +24,20 @@
                     <label for="nombre">Nombre</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" value="<?= $_SESSION['nombre'] ?>" readonly required>
                 </div>
-                <div class="col-6 " rowspan="2">
+                <div class="col-6">
                     <label for="avatar">Avatar</label>
-                    <input type="file" class="form-control" id="avatar" name="avatar">
+                    <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*">
+                    <?php if ($_SESSION['avatar']) : ?>
+                        <img id="avatar-current-preview"
+                            src="/MyPsiqueTFG/app/uploads/avatar/<?= htmlspecialchars($_SESSION['avatar']) ?>"
+                            alt="Avatar actual"
+                            style="max-width: 150px; margin-top: 10px; border-radius: 50%; object-fit: cover;">
+                    <?php else: ?>
+                        <img id="avatar-current-preview"
+                            src="/MyPsiqueTFG/app/uploads/avatar/default.png"
+                            alt="Sin avatar"
+                            style="max-width: 150px; margin-top: 10px; border-radius: 50%; object-fit: cover;">
+                    <?php endif; ?>
                 </div>
                 <div class="col-6">
                     <label for="correo">Correo</label>
