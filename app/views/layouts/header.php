@@ -20,7 +20,7 @@ $base_url = '/MyPsiqueTFG';
                             Sobre Nosotros
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item nav_buton" href="#">Contacto</a></li>
+                            <li><a class="dropdown-item nav_buton" href="<?= $base_url ?>/app/views/about/contact.php">Contacto</a></li>
                             <li><a class="dropdown-item nav_buton" href="<?= $base_url ?>/app/views/about/aboutUs.php">Quiénes somos</a></li>
                         </ul>
                     </div>
