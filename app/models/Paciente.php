@@ -1,13 +1,6 @@
 <?php
 
 class Paciente {
-
-    /*
-            Paciente va a tener = 
-
-        id ( auto incrm ) 
-        id_usuario ( de tabla Usuarios ) 
-     */
     
     private $usuario_id;
     

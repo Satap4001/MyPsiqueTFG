@@ -27,6 +27,11 @@ $publicaciones = [];
 if ($psicologo) {
     $publicaciones = Publicacion::findByPsicologoId($psicologo['id']);
 }
+if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $usuario['id']) {
+    $esPropietario = true;
+} else {
+    $esPropietario = false;
+}
 
 echo json_encode([
     'nombre'       => $usuario['nombre'],
@@ -34,6 +39,8 @@ echo json_encode([
     'tipo'         => $usuario['tipo'],
     'avatar'       => $usuario['avatar'],
     'especialidad' => $psicologo['especialidad'] ?? null,
-    'esPropietario'=> ($_SESSION['user_id'] === $usuario['id']),
+    'telefono'     => $usuario['telefono_contacto'] ?? null,
+    'id'           => $psicologo['id'] ?? null,
+    'esPropietario'=> $esPropietario,
     'publicaciones'=> $publicaciones
 ]);

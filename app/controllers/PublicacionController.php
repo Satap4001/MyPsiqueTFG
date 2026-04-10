@@ -73,7 +73,7 @@
         $publicacion = new Publicacion($id_psicologo, $titulo, $descripcion, date('Y-m-d H:i:s'), $codigoImagen1, $codigoImagen2, $codigoImagen3, 0);
         $publicacion->insert();
         
-        header('Location: ../views/psicologos/buscar.php');
+        header('Location: ../views/psicologos/comunidad.php');
         exit;
        
     }
