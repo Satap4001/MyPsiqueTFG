@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión — MyPsique</title>
-    <link rel="stylesheet" href="../../../public/styles/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/MyPsiqueTFG/public/styles/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../../../public/styles/custom/css/styles.css">
+    <link rel="stylesheet" href="/MyPsiqueTFG/public/styles/custom/css/styles.css">
 </head>
 <body class="m-0 p-0">
 
@@ -99,7 +99,7 @@
 
             <p class="text-center mb-0 small" style="color: var(--color-gris-azul);">
                 ¿No tienes cuenta?
-                <a href="register.php" class="fw-medium" style="color: var(--color-azul);">Regístrate gratis</a>
+                <a href="/MyPsiqueTFG/registro" class="fw-medium" style="color: var(--color-azul);">Regístrate gratis</a>
             </p>
         </div>
     </div>

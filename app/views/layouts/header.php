@@ -10,7 +10,7 @@ $base_url = '/MyPsiqueTFG';
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <!-- LOGO CON LINK INDEX -->
-            <a href="<?= $base_url ?>/public/index.php" class="navbar-brand">MyPsique</a>
+            <a href="/MyPsiqueTFG/home" class="navbar-brand">MyPsique</a>
 
             <!-- TEXTO DROPDOWN -->
             <div class="navbar-nav mx-auto">
@@ -20,8 +20,8 @@ $base_url = '/MyPsiqueTFG';
                             Sobre Nosotros
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item nav_buton" href="<?= $base_url ?>/app/views/about/contact.php">Contacto</a></li>
-                            <li><a class="dropdown-item nav_buton" href="<?= $base_url ?>/app/views/about/aboutUs.php">Quiénes somos</a></li>
+                            <li><a class="dropdown-item nav_buton" href="#">Contacto</a></li>
+                            <li><a class="dropdown-item nav_buton" href="/MyPsiqueTFG/sobre_nosotros">Quiénes somos</a></li>
                         </ul>
                     </div>
 
@@ -31,7 +31,7 @@ $base_url = '/MyPsiqueTFG';
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item nav_buton" href="#">Nuestros Psicólogos</a></li>
-                            <li><a class="dropdown-item nav_buton" href="<?= $base_url ?>/app/views/psicologos/comunidad.php">Comunidad</a></li>
+                            <li><a class="dropdown-item nav_buton" href="/MyPsiqueTFG/comunidad">Comunidad</a></li>
                             <li><a class="dropdown-item nav_buton" href="#">Trabaja con nosotros</a></li>
                         </ul>
                     </div>
@@ -49,17 +49,17 @@ $base_url = '/MyPsiqueTFG';
                                 Mi Cuenta
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item nav_buton" href="' . $base_url . '/app/views/dashboard/perfil.php?user_id=' . $_SESSION['user_id'] . '">Mi Perfil</a></li>
-                                <li><a class="dropdown-item nav_buton" href="' . $base_url . '/app/views/dashboard/modPerfil.php">Modificar Cuenta</a></li>
-                                <li><a class="dropdown-item nav_buton" href="' . $base_url . '/app/views/auth/logout.php">Cerrar sesión</a></li>
+                                <li><a class="dropdown-item nav_buton" href="' . '/MyPsiqueTFG/perfil?user_id=' . $_SESSION['user_id'] . '">Mi Perfil</a></li>
+                                <li><a class="dropdown-item nav_buton" href="' . '/MyPsiqueTFG/modificar_cuenta">Modificar Cuenta</a></li>
+                                <li><a class="dropdown-item nav_buton" href="' . '/MyPsiqueTFG/logout">Cerrar sesión</a></li>
                             </ul>
                         </div>
                     ';
                     
                 } else {
                     // Usuario no autenticado
-                    echo '<a href="' . $base_url . '/app/views/auth/login.php" class="btn btn-outline-primary me-2">Iniciar sesión</a>';
-                    echo '<a href="' . $base_url . '/app/views/auth/register.php" class="btn btn-primary">Registrarse</a>';
+                    echo '<a href="' . '/MyPsiqueTFG/login" class="btn btn-outline-primary me-2">Iniciar sesión</a>';
+                    echo '<a href="' . '/MyPsiqueTFG/registro" class="btn btn-primary">Registrarse</a>';
                 }
                 ?>
             </div>
