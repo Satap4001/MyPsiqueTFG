@@ -41,7 +41,7 @@ fetch(`/MyPsiqueTFG/app/controllers/PerfilController.php?user_id=${user_id}`)
                         <h2 class="mb-3">${data.nombre}</h2>
                         
                         ${data.esPropietario 
-                            ? '<a href="modPerfil.php" class="btn btn-primary btn-sm w-100 mb-2">Editar Perfil</a>' 
+                            ? '<a href="/MyPsiqueTFG/perfil/editar" class="btn btn-primary btn-sm w-100 mb-2">Editar Perfil</a>' 
                             : ''}
                         
                         ${data.tipo === 'psicologo' ? `
