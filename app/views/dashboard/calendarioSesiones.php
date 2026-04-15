@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../../../public/styles/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../public/styles/custom/css/styles.css">
+    <link rel="stylesheet" href="/MyPsiqueTFG/public/styles/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/MyPsiqueTFG/public/styles/custom/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <style>
@@ -33,8 +33,8 @@
 </style>
 <body>
     <?php include '../layouts/header.php';  
-        $psicologoId = $_GET['psicologo_id'];
-        var_dump($_GET);
+        $psicologoId = $_GET['id'] ?? null;
+        
     ?>
     
     <div class="m-5 p-5">
