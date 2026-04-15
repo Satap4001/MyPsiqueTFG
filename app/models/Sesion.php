@@ -4,20 +4,24 @@ class Sesion {
 
     private $id_psicologo;
     private $id_paciente;
-    private $fecha;
-    private $descripcion;
+    private $fecha_inicio;
+    private $fecha_fin;
+    private $resumen;
+    private $titulo;
 
-    public function __construct($id_psicologo, $id_paciente, $fecha, $descripcion) {
+    public function __construct($id_psicologo, $id_paciente = null, $fecha_inicio, $fecha_fin, $resumen = null, $titulo = null) {
         $this->id_psicologo = $id_psicologo;
         $this->id_paciente = $id_paciente;
-        $this->fecha = $fecha;
-        $this->descripcion = $descripcion;
+        $this->fecha_inicio = $fecha_inicio;
+        $this->fecha_fin = $fecha_fin;
+        $this->resumen = $resumen;
+        $this->titulo = $titulo;
     }
 
     public function insert() {
         $pdo = connectDB();
-        $stmt = $pdo->prepare("INSERT INTO sesiones (id_psicologo, id_paciente, fecha, descripcion) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$this->id_psicologo, $this->id_paciente, $this->fecha, $this->descripcion]);
+        $stmt = $pdo->prepare("INSERT INTO sesiones (id_psicologo, id_paciente, fecha_inicio, fecha_fin, resumen, titulo) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$this->id_psicologo, $this->id_paciente, $this->fecha_inicio, $this->fecha_fin, $this->resumen, $this->titulo]);
     }
 
     public static function delete($id) {
