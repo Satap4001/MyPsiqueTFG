@@ -80,6 +80,13 @@ class Usuario {
         $stmt = $pdo->prepare("DELETE FROM usuarios WHERE email = ?");
         $stmt->execute([$email]);
     }
+
+    public static function getAllByType($tipo) {
+        $pdo = connectDB();
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE tipo = ?");
+        $stmt->execute([$tipo]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
 
 }

@@ -49,7 +49,7 @@ $base_url = '/MyPsiqueTFG';
                                 Mi Cuenta
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item nav_buton" href="' . '/MyPsiqueTFG/perfil?user_id=' . $_SESSION['user_id'] . '">Mi Perfil</a></li>
+                                <li><a class="dropdown-item nav_buton" href="' . '/MyPsiqueTFG/perfil/' . $_SESSION['nombre'] . '-' . $_SESSION['user_id'] . '">Mi Perfil</a></li>
                                 <li><a class="dropdown-item nav_buton" href="' . '/MyPsiqueTFG/perfil/editar">Modificar Cuenta</a></li>
                                 <li><a class="dropdown-item nav_buton" href="' . '/MyPsiqueTFG/logout">Cerrar sesión</a></li>
                             </ul>

@@ -20,12 +20,13 @@
 
     <?php include '../layouts/footer.php'; ?>
 <script>
-const params = new URLSearchParams(window.location.search);
-const user_id = params.get('user_id');
+const slug = window.location.pathname.split('/').pop(); 
+const user_id = slug.split('-').pop(); 
 
 fetch(`/MyPsiqueTFG/app/controllers/PerfilController.php?user_id=${user_id}`)
     .then(res => {
         if (!res.ok) throw new Error('Usuario no encontrado');
+        console.log(res);
         return res.json();
     })
     .then(data => {
@@ -61,6 +62,11 @@ fetch(`/MyPsiqueTFG/app/controllers/PerfilController.php?user_id=${user_id}`)
                             <p class="mb-0">
                                 <strong>Agendar día:</strong><br>
                                 <a href="calendarioSesiones.php?psicologo_id=${data.id}&nombre=${data.nombre}" class="text-info">Ver calendario ${data.id}</a>
+                            </p>
+                            <hr>
+                            <p class="mb-0">
+                                <strong>Reservar sesión:</strong><br>
+                                <button><a href="/MyPsiqueTFG/reserva/${data.nombre}-${data.id}">Reservar</a></button>
                             </p>
                             
                         ` : ''}
