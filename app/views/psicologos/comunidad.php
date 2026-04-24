@@ -191,7 +191,7 @@
                                             
                                             <div class="flex-grow-1">
                                                 <h6 class="mb-0">
-                                                    <a href="/MyPsiqueTFG/perfil/${publicacion.nombre}-${publicacion.user_id}" 
+                                                    <a href="/MyPsiqueTFG/perfil/${encodeURIComponent(publicacion.nombre)}-${publicacion.user_id}" 
                                                     class="text-decoration-none fw-bold"
                                                     style="color: var(--color-azul-oscuro); transition: color 0.3s;">
                                                         ${publicacion.nombre}
