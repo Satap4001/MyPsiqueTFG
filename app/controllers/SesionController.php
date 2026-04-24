@@ -21,14 +21,21 @@ include_once '../models/Usuario.php';
         } else {
             echo "Error al guardar la sesión.";
         }
-    } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+    } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        
+        $sesiones = Sesion::findByPsicologo($_GET['id']);
+        echo json_encode($sesiones);
+    
+    }
+    
+    elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         if($_GET['tipo'] == 'psicologo' ){
 
         } elseif ($_GET['tipo'] == 'paciente') {
 
         }
     } elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-        parse_str(file_get_contents("php://input"), $data);
+            parse_str(file_get_contents("php://input"), $data);
         if(isset($data['id'])) {
             Sesion::delete($data['id']);
             echo json_encode(['success' => true]);

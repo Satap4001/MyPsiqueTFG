@@ -45,6 +45,48 @@
         </div>
         <div id="calendar"></div>
     </div>
+
+    <div style="display: none;" id="SeleccionarDia" class="modal fade" tabindex="-1" aria-labelledby="SeleccionarDiaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <div>
+                        <h5 class="modal-title" id="SeleccionarDiaLabel">Selecciona una hora</h5>
+                        <small class="text-white-50" id="fechaHeaderModal"></small>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                
+                <div class="modal-body">
+                    
+                    <div class="alert alert-info mb-4" role="alert">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <span class="badge bg-success me-2">Libre</span> Hora sin sesiones
+                            </div>
+                            <div class="col-md-4">
+                                <span class="badge bg-secondary me-2">Ocupada</span> Hora con sesión
+                            </div>
+                            <div class="col-md-4">
+                                <span class="badge bg-secondary me-2 disabled">No disponible</span> No seleccionable
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="row g-2" id="horasGrid">
+                        
+                    </div>
+                </div>
+
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <?php include '../layouts/footer.php';  ?>
 </body>
 
@@ -61,7 +103,7 @@
         const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         currentMonthEl.textContent = `${monthNames[currentMonth]} ${currentYear}`;
     }
-
+    let sesionPorFecha = {};
     function generateCalendar(year, month) {
         calendarEl.innerHTML = '';
 
@@ -88,8 +130,80 @@
             el.classList.add('day');
             el.textContent = day;
             calendarEl.appendChild(el);
+
+            
+            const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+            el.addEventListener('click', () => {
+                abrirModalHoras(dateStr, sesionPorFecha[dateStr] || []);
+            });
         }
     }
+
+    function abrirModalHoras(fecha, sesionesDelDia) {
+        const horasGrid = document.getElementById('horasGrid');
+        const fechaHeader = document.getElementById('fechaHeaderModal');
+        
+        
+        const dateObj = new Date(fecha + 'T00:00:00');
+        const opcionesFormato = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const fechaFormato = dateObj.toLocaleDateString('es-ES', opcionesFormato);
+        fechaHeader.textContent = fechaFormato.charAt(0).toUpperCase() + fechaFormato.slice(1);
+
+        
+        const horasOcupadas = new Set();
+        sesionesDelDia.forEach(sesion => {
+            const inicio = new Date(sesion.fecha_inicio);
+            const fin = new Date(sesion.fecha_fin);
+            
+            for (let hora = inicio.getHours(); hora < fin.getHours(); hora++) {
+                horasOcupadas.add(hora);
+            }
+        });
+
+        
+        horasGrid.innerHTML = '';
+        for (let hora = 0; hora < 24; hora++) {
+            const col = document.createElement('div');
+            col.classList.add('col-6', 'col-md-4', 'col-lg-2');
+
+            const estaOcupada = horasOcupadas.has(hora);
+            const horaNumero = String(hora).padStart(2, '0');
+
+            if (estaOcupada) {
+                col.innerHTML = `
+                    <button class="btn btn-secondary w-100 disabled" disabled>
+                        <strong>${horaNumero}:00</strong>
+                        <small class="d-block">Ocupada</small>
+                    </button>
+                `;
+            } else {
+                col.innerHTML = `
+                    <button class="btn btn-outline-success w-100" onclick="seleccionarHora('${fecha}', ${hora})">
+                        <strong>${horaNumero}:00</strong>
+                        <small class="d-block">Disponible</small>
+                    </button>
+                `;
+            }
+
+            horasGrid.appendChild(col);
+        }
+
+        
+        const modal = new bootstrap.Modal(document.getElementById('SeleccionarDia'));
+        modal.show();
+    }
+
+    
+    function seleccionarHora(fecha, hora) {
+        const horaFormato = String(hora).padStart(2, '0');
+        alert(`Hora seleccionada: ${fecha} a las ${horaFormato}:00`);
+        
+        
+        const modal = bootstrap.Modal.getInstance(document.getElementById('SeleccionarDia'));
+        modal.hide();
+    }
+
 
     MesAntesBtn.addEventListener('click', () => {
         currentMonth--;
