@@ -4,15 +4,15 @@ class Sesion {
 
     private $id_psicologo;
     private $id_paciente;
-    private $fecha_inicio;
+    private $fecha_sesion;
     private $fecha_fin;
     private $resumen;
     private $titulo;
 
-    public function __construct($id_psicologo, $id_paciente = null, $fecha_inicio, $fecha_fin, $resumen = null, $titulo = null) {
+    public function __construct($id_psicologo, $fecha_sesion, $fecha_fin, $id_paciente = null, $resumen = null, $titulo = null) {
         $this->id_psicologo = $id_psicologo;
         $this->id_paciente = $id_paciente;
-        $this->fecha_inicio = $fecha_inicio;
+        $this->fecha_sesion = $fecha_sesion;
         $this->fecha_fin = $fecha_fin;
         $this->resumen = $resumen;
         $this->titulo = $titulo;
@@ -20,8 +20,8 @@ class Sesion {
 
     public function insert() {
         $pdo = connectDB();
-        $stmt = $pdo->prepare("INSERT INTO sesiones (id_psicologo, id_paciente, fecha_inicio, fecha_fin, resumen, titulo) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$this->id_psicologo, $this->id_paciente, $this->fecha_inicio, $this->fecha_fin, $this->resumen, $this->titulo]);
+        $stmt = $pdo->prepare("INSERT INTO sesiones (id_psicologo, id_paciente, fecha_sesion, fecha_fin, resumen, titulo) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$this->id_psicologo, $this->id_paciente, $this->fecha_sesion, $this->fecha_fin, $this->resumen, $this->titulo]);
     }
 
     public static function delete($id) {
@@ -30,10 +30,10 @@ class Sesion {
         $stmt->execute([$id]);
     }
 
-    public static function update($id, $id_psicologo, $id_paciente, $fecha, $descripcion) {
+    public static function update($id, $id_psicologo, $id_paciente, $fecha_sesion, $fecha_fin, $resumen, $titulo) {
         $pdo = connectDB();
-        $stmt = $pdo->prepare("UPDATE sesiones SET id_psicologo = ?, id_paciente = ?, fecha = ?, descripcion = ? WHERE id = ?");
-        $stmt->execute([$id_psicologo, $id_paciente, $fecha, $descripcion, $id]);
+        $stmt = $pdo->prepare("UPDATE sesiones SET id_psicologo = ?, id_paciente = ?, fecha_sesion = ?, fecha_fin = ?, resumen = ?, titulo = ? WHERE id = ?");
+        $stmt->execute([$id_psicologo, $id_paciente, $fecha_sesion, $fecha_fin, $resumen, $titulo, $id]);
     }
 
     public static function findById($id) {
@@ -63,8 +63,22 @@ class Sesion {
 
     public static function findByDate($fecha) {
         $pdo = connectDB();
-        $stmt = $pdo->prepare("SELECT * FROM sesiones WHERE fecha = ?");
+        $stmt = $pdo->prepare("SELECT * FROM sesiones WHERE DATE(fecha_sesion) = ?");
         $stmt->execute([$fecha]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    }
+
+    public static function findByPsicologoAndDay($id_psicologo, $fecha) {
+        $pdo = connectDB();
+        $stmt = $pdo->prepare("SELECT * FROM sesiones WHERE id_psicologo = ? AND DATE(fecha_sesion) = ?");
+        $stmt->execute([$id_psicologo, $fecha]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    }
+
+    public static function findByPsicologoAndMonth($id_psicologo, $fecha) {
+        $pdo = connectDB();
+        $stmt = $pdo->prepare("SELECT * FROM sesiones WHERE id_psicologo = ? AND MONTH(fecha_sesion) = MONTH(?) AND YEAR(fecha_sesion) = YEAR(?)");
+        $stmt->execute([$id_psicologo, $fecha, $fecha]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC); 
     }
 

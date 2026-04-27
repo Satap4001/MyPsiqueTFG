@@ -59,10 +59,6 @@ fetch(`/MyPsiqueTFG/app/controllers/PerfilController.php?user_id=${user_id}`)
                                 <strong>Email:</strong><br>
                                 <a href="mailto:${data.email}" class="text-info">${data.email}</a>
                             </p>
-                            <p class="mb-0">
-                                <strong>Agendar día:</strong><br>
-                                <a href="calendarioSesiones.php?psicologo_id=${data.id}&nombre=${data.nombre}" class="text-info">Ver calendario ${data.id}</a>
-                            </p>
                             <hr>
                             <p class="mb-0">
                                 <strong>Reservar sesión:</strong><br>
