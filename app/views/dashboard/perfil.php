@@ -62,7 +62,7 @@ fetch(`/MyPsiqueTFG/app/controllers/PerfilController.php?user_id=${user_id}`)
                             <hr>
                             <p class="mb-0">
                                 <strong>Reservar sesión:</strong><br>
-                                <button><a href="/MyPsiqueTFG/reserva/${data.nombre}-${data.id}">Reservar</a></button>
+                                <button><a href="/MyPsiqueTFG/reserva/${data.nombre}-${user_id}">Reservar</a></button>
                             </p>
                             
                         ` : ''}
