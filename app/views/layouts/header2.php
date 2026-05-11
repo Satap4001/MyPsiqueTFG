@@ -15,21 +15,21 @@ $base_url = '/MyPsiqueTFG';
             <!-- TEXTO DROPDOWN -->
             <div class="navbar-nav mx-auto">
                 <div class="d-flex gap-3">
-                    <div class="dropdown dropdown-center">
-                        <button class="btn nav_buton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle nav_buton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Sobre Nosotros
                         </button>
-                        <ul class="dropdown-menu text-center start-50 translate-middle-x">
+                        <ul class="dropdown-menu">
                             <li><a class="dropdown-item nav_buton" href="#">Contacto</a></li>
                             <li><a class="dropdown-item nav_buton" href="/MyPsiqueTFG/sobre_nosotros">Quiénes somos</a></li>
                         </ul>
                     </div>
 
-                    <div class="dropdown dropdown-center">
-                        <button class="btn nav_buton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle nav_buton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Psicólogos
                         </button>
-                        <ul class="dropdown-menu text-center start-50 translate-middle-x">
+                        <ul class="dropdown-menu">
                             <li><a class="dropdown-item nav_buton" href="#">Nuestros Psicólogos</a></li>
                             <li><a class="dropdown-item nav_buton" href="/MyPsiqueTFG/comunidad">Comunidad</a></li>
                             <li><a class="dropdown-item nav_buton" href="#">Trabaja con nosotros</a></li>
@@ -44,12 +44,6 @@ $base_url = '/MyPsiqueTFG';
                 if (isset($_SESSION['user_id'])) {
                     // Usuario autenticado
                     echo '
-                        <div>
-                            <a href="' . '/MyPsiqueTFG/chat" class="btn nav_buton me-2">
-                                Mensajes
-                            </a>
-                        </div>
-
                         <div class="dropdown">
                             <button class="btn dropdown-toggle nav_buton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Mi Cuenta
@@ -60,7 +54,6 @@ $base_url = '/MyPsiqueTFG';
                                 <li><a class="dropdown-item nav_buton" href="' . '/MyPsiqueTFG/logout">Cerrar sesión</a></li>
                             </ul>
                         </div>
-                        
                     ';
                     
                 } else {
@@ -74,3 +67,4 @@ $base_url = '/MyPsiqueTFG';
     </nav>
     <script src="<?= $base_url ?>/public/styles/bootstrap/js/bootstrap.bundle.min.js"></script>
 </header>
+

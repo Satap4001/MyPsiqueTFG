@@ -9,8 +9,9 @@
 </head>
 <body>
     <?php include '../layouts/header.php'; ?>
+    <?php var_dump($_SESSION); ?>
 
-<div class="container-fluid mt-5">
+<div class="container mt-5">
     <div class="row" id="perfil-container">
         <p class="text-muted">Cargando perfil...</p>
     </div>

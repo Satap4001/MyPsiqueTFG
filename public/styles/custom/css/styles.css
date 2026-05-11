@@ -28,3 +28,17 @@
     background-color: var(--color-azul-oscuro);
     color: var(--color-nube-dark);
 }
+
+/* .navbar .dropdown-center .dropdown-menu {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    margin-top: 0.5rem;
+} */
+
+/* @media (min-width: 992px) {
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+        margin-top: 0; 
+    }
+} */

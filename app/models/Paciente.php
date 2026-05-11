@@ -1,5 +1,5 @@
 <?php
-
+include_once '../../config/database.php';
 class Paciente {
     
     private $usuario_id;
