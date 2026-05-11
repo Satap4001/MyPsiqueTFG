@@ -44,6 +44,12 @@ $base_url = '/MyPsiqueTFG';
                 if (isset($_SESSION['user_id'])) {
                     // Usuario autenticado
                     echo '
+                        <div>
+                            <a href="' . '/MyPsiqueTFG/chat" class="btn nav_buton me-2">
+                                Mensajes
+                            </a>
+                        </div>
+
                         <div class="dropdown">
                             <button class="btn dropdown-toggle nav_buton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Mi Cuenta
@@ -54,6 +60,7 @@ $base_url = '/MyPsiqueTFG';
                                 <li><a class="dropdown-item nav_buton" href="' . '/MyPsiqueTFG/logout">Cerrar sesión</a></li>
                             </ul>
                         </div>
+                        
                     ';
                     
                 } else {
